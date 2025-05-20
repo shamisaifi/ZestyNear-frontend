@@ -22,13 +22,15 @@ const PopularNear = () => {
         );
 
         setReviewCard(res.data);
+        setLoading(false);
       } catch (error) {
-        console.log("error fething popular restorants: ", error);
+        console.log("error fetching popular restaurants: ", error);
+        setLoading(false);
       }
     };
+
     if (location?.latitude && location?.longitude) {
       getPopularRestaurants();
-      setLoading(false);
     }
   }, [location]);
 
@@ -39,10 +41,12 @@ const PopularNear = () => {
       </h2>
 
       {loading ? (
-        <div className="">Loading...</div>
+        <div>Loading...</div>
+      ) : reviewCard.length === 0 ? (
+        <div>No popular restaurants found near your location.</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {reviewCard?.map((res) => (
+          {reviewCard.map((res) => (
             <Link href={`/restaurant/${res.fsq_id}`} key={res.fsq_id}>
               <ReviewCard
                 image={res.images?.[0]}
