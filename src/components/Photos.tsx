@@ -4,11 +4,11 @@ const Photos = ({ images }) => {
   return (
     <div className="w-full mt-6">
       {images.length > 0 ? (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {images.map((image, index) => (
             <div
               key={index}
-              className="w-full h-80 bg-gray-200 rounded-2xl overflow-hidden"
+              className="w-full md:h-80 bg-gray-200 rounded-2xl overflow-hidden"
             >
               <img
                 src={image.url}

@@ -40,7 +40,6 @@ const Search: React.FC<SearchProps> = ({ variant }) => {
   const searchRestaurant = async () => {
     const query = buildQuery();
     if (!query) {
-      console.log("no query");
       return;
     }
 
@@ -48,7 +47,7 @@ const Search: React.FC<SearchProps> = ({ variant }) => {
 
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/restaurant/search",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/restaurant/search`,
         {
           params: {
             lat: 28.4595,
@@ -109,8 +108,8 @@ const Search: React.FC<SearchProps> = ({ variant }) => {
             placeholder="Search for restaurants"
             className={
               variant === "searchPage"
-                ? " pl-10 md:pl-14 w-full h-12 md:h-14 rounded-sm md:rounded-md bg-white text-base border border-gray-300 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 transition"
-                : "pl-14 w-full h-12 md:h-14 rounded-sm md:rounded-md bg-white text-base border border-gray-300 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 transition"
+                ? " pl-10 md:pl-14 w-full h-12 md:h-14 rounded-sm md:rounded-md bg-white text-base dark:text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 transition"
+                : "pl-14 w-full h-12 md:h-14 rounded-sm md:rounded-md bg-white text-base dark:text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 transition"
             }
           />
         </div>

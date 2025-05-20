@@ -18,7 +18,6 @@ type Props = {
 };
 
 export function DropdownMenuCheckboxes({ heading, options, selected, setSelected }: Props) {
-  // const [selected, setSelected] = React.useState<string>("");
 
   return (
     <div className="flex flex-row items-center gap-3">

@@ -14,11 +14,14 @@ const PopularNear = () => {
 
   const getPopularRestaurants = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/restaurant", {
-        lat: location?.latitude,
-        lon: location?.longitude,
-        limit: 12,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/restaurant`,
+        {
+          lat: location?.latitude,
+          lon: location?.longitude,
+          limit: 12,
+        }
+      );
 
       setReviewCard(res.data);
     } catch (error) {

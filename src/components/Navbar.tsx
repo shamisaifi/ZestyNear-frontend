@@ -8,7 +8,6 @@ import Link from "next/link";
 const Navbar = () => {
   const isVerified = false;
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
   return (
     <div className="fixed top-0 bg-white dark:bg-gray-800 z-50 w-full border-b shadow-sm px-4 sm:px-6 py-3 flex justify-between items-center">

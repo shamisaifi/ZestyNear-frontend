@@ -22,14 +22,13 @@ const RestaurantDetails = ({ id }) => {
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState("About");
-  console.log(restaurant);
 
   const router = useRouter();
 
   const fetchRestaurant = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/restaurant/${id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/restaurant/${id}`
       );
       setRestaurant(response.data);
     } catch (error) {
@@ -86,7 +85,7 @@ const RestaurantDetails = ({ id }) => {
           </div>
 
           <div className="w-full max-w-7xl -mt-20 px-4 sm:px-6 pb-10 z-10">
-            <div className="bg-white p-6 rounded-xl md:rounded-2xl shadow-md">
+            <div className="bg-white p-3 md:p-6 rounded-xl md:rounded-2xl shadow-md">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-sm font-medium border py-0.5 px-2 rounded-full bg-green-50 border-green-200 text-green-700">
                   {data?.categories[0]?.short_name}
@@ -100,7 +99,7 @@ const RestaurantDetails = ({ id }) => {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                <h1 className="text-2xl sm:text-3xl font-semibold">
+                <h1 className="text-2xl sm:text-3xl dark:text-black font-semibold">
                   {data?.name}
                 </h1>
                 <Link
@@ -112,7 +111,7 @@ const RestaurantDetails = ({ id }) => {
                 </Link>
               </div>
 
-              <div className="  flex flex-wrap md:flex-nowrap my-8 justify-between items-start mb-6">
+              <div className="  flex flex-wrap gap-y-2 md:flex-nowrap my-8 justify-between items-start mb-6">
                 <div className="flex items-start gap-3 w-full sm:w-[48%]">
                   <MapPin className="bg-green-100 p-3 rounded-full w-12 h-12 text-green-700" />
                   <div className="flex flex-col leading-5">
@@ -159,7 +158,7 @@ const RestaurantDetails = ({ id }) => {
                 />
               </div>
 
-              <div className="my-8">
+              <div className="my-8 dark:text-black ">
                 <RenderTabContent />
               </div>
             </div>
