@@ -41,7 +41,7 @@ const PopularNear = () => {
       </h2>
 
       {loading ? (
-        <div>Loading...</div>
+        <div className=" text-2xl text-red-500 flex justify-center items-center-safe h-30">Loading...</div>
       ) : reviewCard.length === 0 ? (
         <div>No popular restaurants found near your location.</div>
       ) : (
