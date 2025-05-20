@@ -18,7 +18,7 @@ const ReviewCard = ({
   isOpen,
   address,
 }: ReviewCardProps) => {
-  const defaultImage ="default_thumb.png";
+  const defaultImage = "default_thumb.png";
   const formattedDistance = (
     Number.parseInt(distance.toString()) / 1000
   ).toFixed(2);
@@ -28,7 +28,7 @@ const ReviewCard = ({
       <div className="relative">
         <div className="relative aspect-video w-full">
           <img
-            src={image?.url || defaultImage}
+            src={image || defaultImage}
             alt={name}
             className="h-full w-full object-cover rounded-t-xl"
           />
