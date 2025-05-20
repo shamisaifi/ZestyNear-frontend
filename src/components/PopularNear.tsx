@@ -7,31 +7,30 @@ import { useLocationStore } from "@/store/locationStore";
 const PopularNear = () => {
   const location = useLocationStore((state) => state.location);
   const [reviewCard, setReviewCard] = useState([]);
-
-  if (location?.latitude === null || location?.longitude === null) {
-    return <div>loading...</div>;
-  }
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPopularRestaurants();
-  }, [location]);
+    const getPopularRestaurants = async () => {
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/restaurant`,
+          {
+            lat: location?.latitude,
+            lon: location?.longitude,
+            limit: 12,
+          }
+        );
 
-  const getPopularRestaurants = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/restaurant`,
-        {
-          lat: location?.latitude,
-          lon: location?.longitude,
-          limit: 12,
-        }
-      );
-
-      setReviewCard(res.data);
-    } catch (error) {
-      console.log("error fething popular restorants: ", error);
+        setReviewCard(res.data);
+      } catch (error) {
+        console.log("error fething popular restorants: ", error);
+      }
+    };
+    if (location?.latitude && location?.longitude) {
+      getPopularRestaurants();
+      setLoading(false);
     }
-  };
+  }, [location]);
 
   return (
     <div className="px-4 sm:px-6 lg:px-26 mx-auto my-10 lg:my-10  ">
@@ -39,20 +38,24 @@ const PopularNear = () => {
         Popular Near You
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {reviewCard?.map((res) => (
-          <Link href={`/restaurant/${res.fsq_id}`} key={res.fsq_id}>
-            <ReviewCard
-              image={res.images?.[0]}
-              name={res.name}
-              type={res.categories?.[0]?.short_name || "Unknown"}
-              isOpen={res.closed_bucket}
-              distance={res.distance}
-              address={res.location?.formatted_address}
-            />
-          </Link>
-        ))}
-      </div>
+      {loading ? (
+        <div className="">Loading...</div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {reviewCard?.map((res) => (
+            <Link href={`/restaurant/${res.fsq_id}`} key={res.fsq_id}>
+              <ReviewCard
+                image={res.images?.[0]}
+                name={res.name}
+                type={res.categories?.[0]?.short_name || "Unknown"}
+                isOpen={res.closed_bucket}
+                distance={res.distance}
+                address={res.location?.formatted_address}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
