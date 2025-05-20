@@ -41,7 +41,9 @@ const PopularNear = () => {
       </h2>
 
       {loading ? (
-        <div className=" text-2xl text-red-500 flex justify-center items-center-safe h-30">Loading...</div>
+        <div className=" text-2xl text-red-500 flex justify-center items-center-safe h-30">
+          Loading...
+        </div>
       ) : reviewCard.length === 0 ? (
         <div>No popular restaurants found near your location.</div>
       ) : (
@@ -49,7 +51,7 @@ const PopularNear = () => {
           {reviewCard.map((res) => (
             <Link href={`/restaurant/${res.fsq_id}`} key={res.fsq_id}>
               <ReviewCard
-                image={res.images?.[0]}
+                image={res.images?.[0]?.url}
                 name={res.name}
                 type={res.categories?.[0]?.short_name || "Unknown"}
                 isOpen={res.closed_bucket}

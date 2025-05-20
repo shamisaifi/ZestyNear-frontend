@@ -16,7 +16,7 @@ const Restaurants = () => {
           key={restaurant?.fsq_id}
         >
           <ReviewCard
-            image={restaurant?.images?.[0].url}
+            image={restaurant?.images?.[0]?.url}
             name={restaurant?.name}
             type={restaurant?.categories?.[0]?.short_name || "Unknown"}
             isOpen={restaurant?.closed_bucket}
