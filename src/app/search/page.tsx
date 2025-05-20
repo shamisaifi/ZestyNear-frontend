@@ -1,4 +1,3 @@
-import FilterBar from "@/components/FilterBar";
 import Restaurants from "@/components/Restaurants";
 import Search from "@/components/Search";
 

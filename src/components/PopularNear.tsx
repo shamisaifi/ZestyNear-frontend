@@ -1,8 +1,8 @@
-import { useLocationStore } from "@/store/locationStore";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import ReviewCard from "./ReviewCard";
 import Link from "next/link";
+import { useLocationStore } from "@/store/locationStore";
 
 const PopularNear = () => {
   const location = useLocationStore((state) => state.location);
@@ -11,6 +11,10 @@ const PopularNear = () => {
   if (location?.latitude === null || location?.longitude === null) {
     return <div>loading...</div>;
   }
+
+  useEffect(() => {
+    getPopularRestaurants();
+  }, [location]);
 
   const getPopularRestaurants = async () => {
     try {
@@ -28,10 +32,6 @@ const PopularNear = () => {
       console.log("error fething popular restorants: ", error);
     }
   };
-
-  useEffect(() => {
-    getPopularRestaurants();
-  }, [location]);
 
   return (
     <div className="px-4 sm:px-6 lg:px-26 mx-auto my-10 lg:my-10  ">
